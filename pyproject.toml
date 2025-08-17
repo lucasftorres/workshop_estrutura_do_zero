@@ -8,7 +8,6 @@ authors = [
 readme = "README.md"
 package-mode = false
 
-
 [tool.poetry.dependencies]
 python = "3.11.5"
 faker = "^19.6.2"
@@ -22,25 +21,16 @@ mkdocstrings = "^0.23.0"
 pip-audit = "^2.6.1"
 taskipy = "^1.12.0"
 
-[tool.isort]
-profile = "black"
-known_third_party = []
-
-[tool.poetry.group.dev.dependencies]
-mkdocs = "^1.5.3"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.isort]
+profile = 'black'
+known_third_party = []
+
 [tool.taskipy.tasks]
-format = """
-isort .
-black .
-"""
-kill = "kill -9 $(lsof -t -i :8000)"
-test = "pytest -v"
-run = """
-python app/main.py
-"""
-doc = "mkdocs serve"
+format = 'isort . && blue .'
+test = 'poetry run pytest -v'
+kill = 'kill -9 ${lsof -t -i :8000}'
